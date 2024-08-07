@@ -1,0 +1,43 @@
+/* body { 정확하게 알고 쓰기.
+    margin: auto;
+} */
+body {
+    box-sizing: border-box;
+    min-height: 100vh; /* 왜 이거 하면 스크롤 생기지? 잡아주긴 해야할 거 같은데. */
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px;
+    padding: 10px;
+    border: 1px solid;
+    margin: 100px;
+}
+
+.header {
+    text-align: center;
+}
+
+.intro {
+    text-align: center;
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+
+.intro img {
+    width: 500px;
+    height: 500px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.transparent {
+    opacity: 0;
+}
