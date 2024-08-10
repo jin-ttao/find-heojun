@@ -5,10 +5,9 @@ let startCnt = 0;
 const introPage = document.querySelector(".intro");
 const gameBoardPage = document.querySelector(".game-board");
 const startBtn = document.querySelector(".startBtn");
-const imgBox = document.querySelectorAll(".img-box"); // 이 클래스 가진 돔 요소들 모두 imgBox라고 부를게.
+const imgBox = document.querySelectorAll(".img-box"); // 이 클래스 가진 돔 요소들 모두 imgBox라고 부를게. -- NodeList로 잡힘.
 // const imgBox = document.querySelectorAll() -- 사용가능한지 나중에 체크
 
-// 이벤트 버블링으로 해결할 수도?
 // for문은 언제 동작하지? 다 돌려놓는건지, 클릭하면 그 떄 돌리는건지?
 startBtn.addEventListener("click", function(){    
     if (startCnt % 2 == 0) {
@@ -20,28 +19,42 @@ startBtn.addEventListener("click", function(){
         startCnt++;
     }
 });
-for (i = 0; i < imgBox.length; i++) {
-    imgBox[i].addEventListener("click", function() {
-        // let target = event.target;
-        // console.log(event.target.className); // img-box bg1 출력 (에디터가 자동완성 안해줘서 없는 기능인 줄 알았는데 된다;;)
-        // console.log(event.target);
-        // console.log(event.target.className);
-        saveCard(event.target);
-    });
-    // <div class="img-box bg1"><img src="src/heojun-3.jpg">5</div>
-};
+// 이벤트 버블링으로 할 수도?
+// for (i = 0; i < imgBox.length; i++) {
+//     imgBox[i].addEventListener("click", function() {
+//         console.log(event.target);
+//         // saveCard(event.target);
+//     });
+//     // <div class="img-box bg1"><img src="src/heojun-3.jpg">5</div>
+// };
+gameBoardPage.addEventListener("click", function(){
+    console.log(event.target);
+});
 
+// 기능1. 게임 시작, 카드 랜덤 배치
 function gameStart() {
+    let randomNumberList = [];
+    
+    for (i = 0; ;i++) { // 세미콜론 위치 중요.
+        let randomNumber = Math.floor(Math.random()*8) +1;
+        let cntFilter = randomNumberList.filter((num) => num === randomNumber);
+
+        if (cntFilter.length < 2) {
+            randomNumberList.push(randomNumber);
+        }   
+        if (randomNumberList.length === 16) break;
+        console.log(randomNumberList); // 여기서는 15개 나오고
+    }
+    console.log(randomNumberList); // 여기서는 16개 나옴.
+    for (k = 0; k < randomNumberList.length; k++) {
+        imgBox[k].firstElementChild.setAttribute('src', 'src/' + 'heojun-' + randomNumberList[k] + '.jpg');
+    }
+    
     introPage.classList.add("hide");
     gameBoardPage.classList.remove("transparent");
-}
-
-// 기능1. 카드 랜덤 배치
-function setRandom() {
-    let randomNumber = Math.floor(Math.random()*(imgBox.length/2)) +1; // 1~4 랜덤
-    // 클래스 부착
-    imgBox.classList.add(randomNumber)
-};
+    console.log(introPage.classList);
+    console.log(gameBoardPage.classList);
+};    
 
 // 기능4. 사용자가 클릭한 카드 관리 (클래스를 배열에 저장해두고, 정오답 여부에 따라 처리)
 function saveCard(clickedElement) {
