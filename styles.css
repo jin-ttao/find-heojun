@@ -3,7 +3,7 @@
 } */
 body {
     box-sizing: border-box;
-    min-height: 100vh; /* 왜 이거 하면 스크롤 생기지? 잡아주긴 해야할 거 같은데. */
+    /* min-height: 100vh; 왜 이거 하면 스크롤 생기지? 잡아주긴 해야할 거 같은데. */
 }
 
 .game-board {
@@ -20,6 +20,12 @@ body {
 
 .intro {
     text-align: center;
+}
+
+.img-box {
+    width: 150px;
+    height: 150px;
+    box-sizing: content-box;
 }
 
 img {
